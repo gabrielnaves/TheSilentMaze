@@ -63,3 +63,8 @@ Assets/StreamingAssets.meta
 fmod_editor.log
 *FMODStudioCache.asset
 *FMODStudioCache.asset.meta
+
+
+*.blend1
+*.blend1.meta
+
