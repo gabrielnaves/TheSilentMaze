@@ -6,10 +6,7 @@ public class PlayerMovement : MonoBehaviour {
     public float walkSpeed = 4f;
     public float runSpeed = 8f;
 
-    public Transform groundcheck;
-    public float groundDistance = .4f;
-    public LayerMask groundMask;
-    [ViewOnly] bool isGrounded;
+    public Groundcheck groundcheck;
 
     CharacterController characterController;
     Vector3 velocity;
@@ -20,9 +17,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Update() {
-        isGrounded = Physics.CheckSphere(groundcheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
+        if (groundcheck.isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
         float x = GameInput.instance.movement.x;

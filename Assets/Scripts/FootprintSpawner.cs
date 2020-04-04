@@ -4,7 +4,7 @@ public class FootprintSpawner : MonoBehaviour {
 
     public GameObject footprintPrefab;
     public float distanceDelta;
-    public Transform footprintSpawnPosition;
+    public Groundcheck groundcheck;
     public Transform footprintContainer;
 
     Vector3 previousPosition;
@@ -12,6 +12,11 @@ public class FootprintSpawner : MonoBehaviour {
 
     void Start() {
         previousPosition = transform.position;
+        groundcheck.OnReachedGround += SpawnDoubleFootprints;
+    }
+
+    void SpawnDoubleFootprints() {
+        flip = false;
         SpawnFootprint();
         SpawnFootprint();
     }
@@ -22,12 +27,12 @@ public class FootprintSpawner : MonoBehaviour {
     }
 
     bool ShouldSpawnFootprint() {
-        return Vector3.Distance(previousPosition, transform.position) >= distanceDelta;
+        return groundcheck.isGrounded && Vector3.Distance(previousPosition, transform.position) >= distanceDelta;
     }
 
     void SpawnFootprint() {
         var footprint = Instantiate(footprintPrefab, footprintContainer);
-        footprint.transform.position = footprintSpawnPosition.position;
+        footprint.transform.position = groundcheck.transform.position;
         footprint.transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, 0);
         footprint.transform.position += footprint.transform.right * (flip ? .15f : -.15f);
         if (flip) {
