@@ -57,6 +57,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3069125379420487228}
+  - component: {fileID: 2108948406051131278}
   - component: {fileID: 335359435510033718}
   - component: {fileID: 8525325844241853052}
   - component: {fileID: 3069125379420487231}
@@ -87,6 +88,18 @@ Transform:
   m_Father: {fileID: 3069125380047886787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &2108948406051131278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069125379420487230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6bea7f0b31043a45960eb7216dc1a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &335359435510033718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +121,7 @@ MonoBehaviour:
   fpsCamera: {fileID: 3069125380399357914}
   groundcheck: {fileID: 6563255798995030022}
   footstepSound: {fileID: 8535400454576351284}
+  noiseLevel: 0
 --- !u!114 &8525325844241853052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +139,6 @@ MonoBehaviour:
   distanceDelta: 1.4
   groundcheck: {fileID: 6563255798995030022}
   footprintContainer: {fileID: 3069125381280319865}
-  footstepSound: {fileID: 0}
 --- !u!143 &3069125379420487231
 CharacterController:
   m_ObjectHideFlags: 0
@@ -472,6 +485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77890d42698e33449d28cb1b15bdf0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playOnAwake: 0
+  loop: 0
   clips:
   - {fileID: 8300000, guid: 4ac82097310d5d243b87ac3f0443320b, type: 3}
   - {fileID: 8300000, guid: c2d222b018baefb4d8c367e0f227cbfb, type: 3}
