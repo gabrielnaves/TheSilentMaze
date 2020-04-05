@@ -58,12 +58,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3069125379420487228}
   - component: {fileID: 335359435510033718}
-  - component: {fileID: 2555220393178490283}
   - component: {fileID: 8525325844241853052}
   - component: {fileID: 3069125379420487231}
   - component: {fileID: 3069125379420487227}
   - component: {fileID: 3069125379420487224}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,20 +108,6 @@ MonoBehaviour:
   fpsCamera: {fileID: 3069125380399357914}
   groundcheck: {fileID: 6563255798995030022}
   footstepSound: {fileID: 8535400454576351284}
---- !u!114 &2555220393178490283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3069125379420487230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f74a563ec77e2248991a58eb48f7b92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stairsTag: Stairs
-  inStairs: 0
 --- !u!114 &8525325844241853052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +125,7 @@ MonoBehaviour:
   distanceDelta: 1.4
   groundcheck: {fileID: 6563255798995030022}
   footprintContainer: {fileID: 3069125381280319865}
-  footstepSound: {fileID: 8535400454576351284}
+  footstepSound: {fileID: 0}
 --- !u!143 &3069125379420487231
 CharacterController:
   m_ObjectHideFlags: 0
@@ -154,7 +139,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 80
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

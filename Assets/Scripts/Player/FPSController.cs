@@ -2,6 +2,8 @@
 
 public class FPSController : MonoBehaviour {
 
+    public enum NoiseLevel { none, low, medium, high }
+
     public float slowWalkSpeed = 2;
     public float walkSpeed = 5;
     public float runSpeed = 10;
@@ -12,9 +14,12 @@ public class FPSController : MonoBehaviour {
     public Groundcheck groundcheck;
     public ShuffledAudioClips footstepSound;
 
+    [ViewOnly] public NoiseLevel noiseLevel;
+     
     FPSLook fpsLook;
     FPSMovement fpsMovement;
     FPSHeadBob fpsHeadBob;
+    float currentSpeed;
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -24,9 +29,10 @@ public class FPSController : MonoBehaviour {
     }
 
     void Update() {
+        UpdateCurrentSpeedAndNoiseLevel();
         fpsLook.Update();
-        fpsMovement.Update(GetCurrentSpeed());
-        fpsHeadBob.Update(IsMoving(), GetCurrentSpeed() * movSpeedToBobSpeed);
+        fpsMovement.Update(currentSpeed);
+        fpsHeadBob.Update(IsMoving(), currentSpeed * movSpeedToBobSpeed);
         if (fpsHeadBob.steppedDown)
             footstepSound.Play();
     }
@@ -35,12 +41,23 @@ public class FPSController : MonoBehaviour {
         return GameInput.instance.movement != Vector2.zero;
     }
 
-    float GetCurrentSpeed() {
-        if (GameInput.instance.isWalkingSlowly)
-            return slowWalkSpeed;
-        if (GameInput.instance.isRunning)
-            return runSpeed;
-        return walkSpeed;
+    void UpdateCurrentSpeedAndNoiseLevel() {
+        if (GameInput.instance.movement == Vector2.zero) {
+            noiseLevel = NoiseLevel.none;
+            currentSpeed = 0;
+        }
+        else if (GameInput.instance.isWalkingSlowly) {
+            noiseLevel = NoiseLevel.low;
+            currentSpeed = slowWalkSpeed;
+        }
+        else if (GameInput.instance.isRunning) {
+            noiseLevel = NoiseLevel.high;
+            currentSpeed = runSpeed;
+        }
+        else {
+            noiseLevel = NoiseLevel.medium;
+            currentSpeed = walkSpeed;
+        }
     }
 }
 
@@ -126,8 +143,8 @@ class FPSHeadBob {
     }
 
     void BobCamera(float speed) {
-        elapsedTime += Time.deltaTime;
-        float bobSineWave = Mathf.Sin(elapsedTime * speed);
+        elapsedTime += Time.deltaTime * speed;
+        float bobSineWave = Mathf.Sin(elapsedTime);
         if (Mathf.Sign(bobSineWave) != Mathf.Sign(previousBobSineWave))
             steppedDown = true;
         previousBobSineWave = bobSineWave;
