@@ -12,7 +12,8 @@ public class GameInput : MonoBehaviour {
 
     [ViewOnly] public ControllerType controllerType;
     [ViewOnly] public Vector2 movement;
-    [ViewOnly] public Vector2 cameraMovement_;
+    [ViewOnly] public Vector2 joystickCameraMovement;
+    [ViewOnly] public Vector2 mouseCameraMovement;
     [ViewOnly] public bool isWalkingSlowly;
     [ViewOnly] public bool isRunning;
 
@@ -23,11 +24,8 @@ public class GameInput : MonoBehaviour {
     public Vector2 cameraMovement {
         get {
             if (controllerType == ControllerType.Keyboard)
-                return cameraMovement_ * mouseSensitivity;
-            return cameraMovement_ * controllerSensitivity;
-        }
-        set {
-            cameraMovement_ = value;
+                return mouseCameraMovement * mouseSensitivity;
+            return joystickCameraMovement * controllerSensitivity;
         }
     }
 
@@ -38,7 +36,8 @@ public class GameInput : MonoBehaviour {
     public void DisableGameplayControls() {
         controls.Gameplay.Disable();
         movement = Vector2.zero;
-        cameraMovement = Vector2.zero;
+        joystickCameraMovement = Vector2.zero;
+        mouseCameraMovement = Vector2.zero;
     }
 
     void Awake() {
@@ -51,8 +50,8 @@ public class GameInput : MonoBehaviour {
         controls = new GameControls();
         controls.Gameplay.PlayerMovement.performed += GetMovementInput;
         controls.Gameplay.PlayerMovement.canceled += GetMovementInput;
-        controls.Gameplay.CameraMovement.performed += GetCameraInput;
-        controls.Gameplay.CameraMovement.canceled += GetCameraInput;
+        controls.Gameplay.CameraMovementJoystick.performed += GetJoystickCameraInput;
+        controls.Gameplay.CameraMovementJoystick.canceled += GetJoystickCameraInput;
         controls.Gameplay.Enable();
         controls.UI.Enable();
         controls.ControlType.Enable();
@@ -62,12 +61,13 @@ public class GameInput : MonoBehaviour {
         movement = context.ReadValue<Vector2>();
     }
 
-    void GetCameraInput(InputAction.CallbackContext context) {
-        cameraMovement = context.ReadValue<Vector2>();
+    void GetJoystickCameraInput(InputAction.CallbackContext context) {
+        joystickCameraMovement = context.ReadValue<Vector2>();
     }
 
     void Update() {
         UpdateControllerType();
+        mouseCameraMovement = 0.75f * mouseCameraMovement + 0.25f * controls.Gameplay.CameraMovementMouse.ReadValue<Vector2>();
         isWalkingSlowly = controls.Gameplay.SlowWalk.ReadValue<float>() != 0;
         isRunning = controls.Gameplay.Run.ReadValue<float>() != 0;
     }
@@ -82,11 +82,6 @@ public class GameInput : MonoBehaviour {
     }
 
     void OnDestroy() {
-        controls.Gameplay.PlayerMovement.performed -= GetMovementInput;
-        controls.Gameplay.PlayerMovement.canceled -= GetMovementInput;
-        controls.Gameplay.PlayerMovement.performed -= GetCameraInput;
-        controls.Gameplay.PlayerMovement.canceled -= GetCameraInput;
-
         PlayerPrefs.SetInt(controllerTypeKey, (int)controllerType);
     }
 }

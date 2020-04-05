@@ -57,8 +57,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3069125379420487228}
-  - component: {fileID: 3069125379420487226}
-  - component: {fileID: 3069125379420487229}
+  - component: {fileID: 335359435510033718}
+  - component: {fileID: 2555220393178490283}
   - component: {fileID: 8525325844241853052}
   - component: {fileID: 3069125379420487231}
   - component: {fileID: 3069125379420487227}
@@ -88,7 +88,7 @@ Transform:
   m_Father: {fileID: 3069125380047886787}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3069125379420487226
+--- !u!114 &335359435510033718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,14 +97,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 3069125379420487230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b32d5ffb75fb2fb4f890d3d524c66953, type: 3}
+  m_Script: {fileID: 11500000, guid: 7636eca3cdd1d0144bbf347973ef8c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slowWalkSpeed: 2
   walkSpeed: 5
   runSpeed: 10
+  movSpeedToBobSpeed: 1
+  headBobHeight: 0.1
+  headBobSmoothing: 0.4
+  fpsCamera: {fileID: 3069125380399357914}
   groundcheck: {fileID: 6563255798995030022}
---- !u!114 &3069125379420487229
+  footstepSound: {fileID: 8535400454576351284}
+--- !u!114 &2555220393178490283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,10 +118,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3069125379420487230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7536477afe299a240990e92135f963cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f74a563ec77e2248991a58eb48f7b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 3069125380399357914}
+  stairsTag: Stairs
+  inStairs: 0
 --- !u!114 &8525325844241853052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -394,10 +400,10 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.813
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
