@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
 
+    public int currentFloor = 2;
+
     public Transform startingPos;
 
     public float[] arcs = new float[0];
@@ -23,7 +25,7 @@ public class Enemy : MonoBehaviour {
 
     void CheckNoiseLevel() {
         FPSController.NoiseLevel noiseLevel = Player.instance.noiseLevel;
-        if (noiseLevel != FPSController.NoiseLevel.none)
+        if (currentFloor == Player.instance.currentFloor && noiseLevel != FPSController.NoiseLevel.none)
             move = Vector3.Distance(Player.instance.transform.position, transform.position) < arcs[(int)noiseLevel];
         else move = false;
     }
