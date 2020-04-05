@@ -6,7 +6,6 @@ public class FootprintSpawner : MonoBehaviour {
     public float distanceDelta;
     public Groundcheck groundcheck;
     public Transform footprintContainer;
-    public ShuffledAudioClips footstepSound;
 
     Vector3 previousPosition;
     bool flip;
@@ -41,8 +40,6 @@ public class FootprintSpawner : MonoBehaviour {
             scale.x *= -1;
             footprint.transform.localScale = scale;
         }
-        if (flip)
-            footstepSound?.Play();
         flip = !flip;
         previousPosition = transform.position;
     }

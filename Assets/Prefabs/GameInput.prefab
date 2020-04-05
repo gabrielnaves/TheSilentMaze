@@ -43,8 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fefdf36e20bcf4b93bfedbbad63417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 5
+  mouseSensitivity: 10
   controllerSensitivity: 150
   controllerType: 0
   movement: {x: 0, y: 0}
-  cameraMovement_: {x: 0, y: 0}
+  joystickCameraMovement: {x: 0, y: 0}
+  mouseCameraMovement: {x: 0, y: 0}
+  isWalkingSlowly: 0
+  isRunning: 0

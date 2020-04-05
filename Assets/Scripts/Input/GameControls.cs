@@ -43,9 +43,17 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Camera Movement"",
+                    ""name"": ""Camera Movement Joystick"",
                     ""type"": ""Button"",
                     ""id"": ""a52e0f5f-19aa-4f9d-80c1-9658f23b6ca7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Camera Movement Mouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""b5da1bb9-f9aa-4e78-ae7a-62a6f95e6e84"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -169,7 +177,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera Movement"",
+                    ""action"": ""Camera Movement Joystick"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -180,7 +188,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera Movement"",
+                    ""action"": ""Camera Movement Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -191,7 +199,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera Movement"",
+                    ""action"": ""Camera Movement Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -202,7 +210,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera Movement"",
+                    ""action"": ""Camera Movement Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -213,20 +221,9 @@ public class @GameControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Camera Movement"",
+                    ""action"": ""Camera Movement Joystick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e7746b1e-e050-4ade-a842-de4b70b60563"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Camera Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -242,7 +239,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""646aeb8b-7963-4691-a7e0-7fae50db5cee"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -253,7 +250,7 @@ public class @GameControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1e6d8372-3566-4835-91fe-2c03e19a1be5"",
-                    ""path"": ""<Keyboard>/ctrl"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -264,11 +261,22 @@ public class @GameControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e76a662a-6ce0-4b1c-82f1-fb910c91dffe"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Slow Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14ae70c2-40dd-4185-b580-c82460c7ea85"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera Movement Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -992,7 +1000,8 @@ public class @GameControls : IInputActionCollection, IDisposable
         m_Gameplay_Run = m_Gameplay.FindAction("Run", throwIfNotFound: true);
         m_Gameplay_SlowWalk = m_Gameplay.FindAction("Slow Walk", throwIfNotFound: true);
         m_Gameplay_PlayerMovement = m_Gameplay.FindAction("Player Movement", throwIfNotFound: true);
-        m_Gameplay_CameraMovement = m_Gameplay.FindAction("Camera Movement", throwIfNotFound: true);
+        m_Gameplay_CameraMovementJoystick = m_Gameplay.FindAction("Camera Movement Joystick", throwIfNotFound: true);
+        m_Gameplay_CameraMovementMouse = m_Gameplay.FindAction("Camera Movement Mouse", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
@@ -1056,7 +1065,8 @@ public class @GameControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Run;
     private readonly InputAction m_Gameplay_SlowWalk;
     private readonly InputAction m_Gameplay_PlayerMovement;
-    private readonly InputAction m_Gameplay_CameraMovement;
+    private readonly InputAction m_Gameplay_CameraMovementJoystick;
+    private readonly InputAction m_Gameplay_CameraMovementMouse;
     public struct GameplayActions
     {
         private @GameControls m_Wrapper;
@@ -1064,7 +1074,8 @@ public class @GameControls : IInputActionCollection, IDisposable
         public InputAction @Run => m_Wrapper.m_Gameplay_Run;
         public InputAction @SlowWalk => m_Wrapper.m_Gameplay_SlowWalk;
         public InputAction @PlayerMovement => m_Wrapper.m_Gameplay_PlayerMovement;
-        public InputAction @CameraMovement => m_Wrapper.m_Gameplay_CameraMovement;
+        public InputAction @CameraMovementJoystick => m_Wrapper.m_Gameplay_CameraMovementJoystick;
+        public InputAction @CameraMovementMouse => m_Wrapper.m_Gameplay_CameraMovementMouse;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1083,9 +1094,12 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @PlayerMovement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPlayerMovement;
                 @PlayerMovement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPlayerMovement;
                 @PlayerMovement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPlayerMovement;
-                @CameraMovement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovement;
-                @CameraMovement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovement;
+                @CameraMovementJoystick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementJoystick;
+                @CameraMovementJoystick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementJoystick;
+                @CameraMovementJoystick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementJoystick;
+                @CameraMovementMouse.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementMouse;
+                @CameraMovementMouse.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementMouse;
+                @CameraMovementMouse.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCameraMovementMouse;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1099,9 +1113,12 @@ public class @GameControls : IInputActionCollection, IDisposable
                 @PlayerMovement.started += instance.OnPlayerMovement;
                 @PlayerMovement.performed += instance.OnPlayerMovement;
                 @PlayerMovement.canceled += instance.OnPlayerMovement;
-                @CameraMovement.started += instance.OnCameraMovement;
-                @CameraMovement.performed += instance.OnCameraMovement;
-                @CameraMovement.canceled += instance.OnCameraMovement;
+                @CameraMovementJoystick.started += instance.OnCameraMovementJoystick;
+                @CameraMovementJoystick.performed += instance.OnCameraMovementJoystick;
+                @CameraMovementJoystick.canceled += instance.OnCameraMovementJoystick;
+                @CameraMovementMouse.started += instance.OnCameraMovementMouse;
+                @CameraMovementMouse.performed += instance.OnCameraMovementMouse;
+                @CameraMovementMouse.canceled += instance.OnCameraMovementMouse;
             }
         }
     }
@@ -1217,7 +1234,8 @@ public class @GameControls : IInputActionCollection, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnSlowWalk(InputAction.CallbackContext context);
         void OnPlayerMovement(InputAction.CallbackContext context);
-        void OnCameraMovement(InputAction.CallbackContext context);
+        void OnCameraMovementJoystick(InputAction.CallbackContext context);
+        void OnCameraMovementMouse(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

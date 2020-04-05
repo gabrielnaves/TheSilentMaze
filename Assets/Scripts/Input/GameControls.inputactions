@@ -30,9 +30,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Camera Movement",
+                    "name": "Camera Movement Joystick",
                     "type": "Button",
                     "id": "a52e0f5f-19aa-4f9d-80c1-9658f23b6ca7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Camera Movement Mouse",
+                    "type": "Button",
+                    "id": "b5da1bb9-f9aa-4e78-ae7a-62a6f95e6e84",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -156,7 +164,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera Movement",
+                    "action": "Camera Movement Joystick",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -167,7 +175,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera Movement",
+                    "action": "Camera Movement Joystick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -178,7 +186,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera Movement",
+                    "action": "Camera Movement Joystick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -189,7 +197,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera Movement",
+                    "action": "Camera Movement Joystick",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -200,20 +208,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Camera Movement",
+                    "action": "Camera Movement Joystick",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "e7746b1e-e050-4ade-a842-de4b70b60563",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Camera Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -229,7 +226,7 @@
                 {
                     "name": "",
                     "id": "646aeb8b-7963-4691-a7e0-7fae50db5cee",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -240,7 +237,7 @@
                 {
                     "name": "",
                     "id": "1e6d8372-3566-4835-91fe-2c03e19a1be5",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -251,11 +248,22 @@
                 {
                     "name": "",
                     "id": "e76a662a-6ce0-4b1c-82f1-fb910c91dffe",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Slow Walk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14ae70c2-40dd-4185-b580-c82460c7ea85",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera Movement Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
