@@ -6,7 +6,6 @@ public class FootprintSpawner : MonoBehaviour {
     public float distanceDelta;
     public Groundcheck groundcheck;
     public Transform footprintContainer;
-    public ShuffledAudioClips footstepSound;
 
     Vector3 previousPosition;
     bool flip;
@@ -16,7 +15,7 @@ public class FootprintSpawner : MonoBehaviour {
         groundcheck.OnReachedGround += SpawnDoubleFootprints;
     }
 
-    void SpawnDoubleFootprints() {
+    public void SpawnDoubleFootprints() {
         flip = false;
         SpawnFootprint();
         SpawnFootprint();
@@ -32,18 +31,19 @@ public class FootprintSpawner : MonoBehaviour {
     }
 
     void SpawnFootprint() {
-        var footprint = Instantiate(footprintPrefab, footprintContainer);
-        footprint.transform.position = groundcheck.transform.position;
-        footprint.transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, 0);
-        footprint.transform.position += footprint.transform.right * (flip ? .15f : -.15f);
-        if (flip) {
-            var scale = footprint.transform.localScale;
-            scale.x *= -1;
-            footprint.transform.localScale = scale;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundcheck.groundMask)) {
+            var footprint = Instantiate(footprintPrefab, footprintContainer);
+            footprint.transform.position = hit.point + Vector3.up * 0.02f;
+            footprint.transform.rotation = Quaternion.Euler(90, transform.rotation.eulerAngles.y, 0);
+            footprint.transform.position += footprint.transform.right * (flip ? .15f : -.15f);
+            if (flip) {
+                var scale = footprint.transform.localScale;
+                scale.x *= -1;
+                footprint.transform.localScale = scale;
+            }
+            flip = !flip;
+            previousPosition = transform.position;
         }
-        if (flip)
-            footstepSound?.Play();
-        flip = !flip;
-        previousPosition = transform.position;
     }
 }
