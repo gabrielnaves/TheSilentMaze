@@ -4,6 +4,7 @@ public class FPSController : MonoBehaviour {
 
     public enum NoiseLevel { none, low, medium, high }
 
+    public float gravityScale = 3;
     public float slowWalkSpeed = 2;
     public float walkSpeed = 5;
     public float runSpeed = 10;
@@ -31,14 +32,14 @@ public class FPSController : MonoBehaviour {
     void Update() {
         UpdateCurrentSpeedAndNoiseLevel();
         fpsLook.Update();
-        fpsMovement.Update(currentSpeed);
+        fpsMovement.Update(currentSpeed, gravityScale);
         fpsHeadBob.Update(IsMoving(), currentSpeed * movSpeedToBobSpeed);
         if (fpsHeadBob.steppedDown)
             footstepSound.Play();
     }
 
     bool IsMoving() {
-        return GameInput.instance.movement != Vector2.zero;
+        return groundcheck.isGrounded && GameInput.instance.movement != Vector2.zero;
     }
 
     void UpdateCurrentSpeedAndNoiseLevel() {
@@ -75,7 +76,7 @@ class FPSMovement {
         this.characterController = characterController;
     }
 
-    public void Update(float movementSpeed) {
+    public void Update(float movementSpeed, float gravityScale) {
         if (groundcheck.isGrounded && fallingVelocity.y < 0)
             fallingVelocity.y = -2f;
 
@@ -85,7 +86,7 @@ class FPSMovement {
         Vector3 move = transform.right * x + transform.forward * z;
         characterController.Move(move * movementSpeed * Time.deltaTime);
 
-        fallingVelocity.y += Physics.gravity.y * Time.deltaTime;
+        fallingVelocity.y += Physics.gravity.y * gravityScale * Time.deltaTime;
 
         characterController.Move(fallingVelocity * Time.deltaTime);
     }

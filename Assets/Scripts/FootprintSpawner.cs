@@ -30,7 +30,7 @@ public class FootprintSpawner : MonoBehaviour {
         return groundcheck.isGrounded && Vector3.Distance(previousPosition, transform.position) >= distanceDelta;
     }
 
-    void SpawnFootprint() {
+    public void SpawnFootprint() {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundcheck.groundMask)) {
             var footprint = Instantiate(footprintPrefab, footprintContainer);
