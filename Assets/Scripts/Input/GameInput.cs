@@ -31,6 +31,7 @@ public class GameInput : MonoBehaviour {
 
     public void EnableGameplayControls() {
         controls.Gameplay.Enable();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void DisableGameplayControls() {
@@ -38,6 +39,7 @@ public class GameInput : MonoBehaviour {
         movement = Vector2.zero;
         joystickCameraMovement = Vector2.zero;
         mouseCameraMovement = Vector2.zero;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void Awake() {
@@ -53,6 +55,7 @@ public class GameInput : MonoBehaviour {
         controls.Gameplay.CameraMovementJoystick.performed += GetJoystickCameraInput;
         controls.Gameplay.CameraMovementJoystick.canceled += GetJoystickCameraInput;
         controls.Gameplay.Enable();
+        controls.UI.Pause.performed += OnPressedPause;
         controls.UI.Enable();
         controls.ControlType.Enable();
     }
@@ -63,6 +66,14 @@ public class GameInput : MonoBehaviour {
 
     void GetJoystickCameraInput(InputAction.CallbackContext context) {
         joystickCameraMovement = context.ReadValue<Vector2>();
+    }
+
+    void OnPressedPause(InputAction.CallbackContext context) {
+        SimplePause.instance?.ToggleAndSendEvents();
+    }
+
+    void Start() {
+        EnableGameplayControls();
     }
 
     void Update() {

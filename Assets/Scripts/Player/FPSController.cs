@@ -23,7 +23,6 @@ public class FPSController : MonoBehaviour {
     float currentSpeed;
 
     void Start() {
-        Cursor.lockState = CursorLockMode.Locked;
         fpsLook = new FPSLook(transform, fpsCamera);
         fpsMovement = new FPSMovement(transform, groundcheck, GetComponent<CharacterController>());
         fpsHeadBob = new FPSHeadBob(fpsCamera, headBobHeight, headBobSmoothing);
