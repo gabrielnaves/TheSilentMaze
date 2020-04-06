@@ -33,6 +33,7 @@ public class GameInput : MonoBehaviour {
     public void EnableGameplayControls() {
         controls.Gameplay.Enable();
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void DisableGameplayControls() {
@@ -41,6 +42,7 @@ public class GameInput : MonoBehaviour {
         joystickCameraMovement = Vector2.zero;
         mouseCameraMovement = Vector2.zero;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void EnablePausing() {
@@ -88,7 +90,7 @@ public class GameInput : MonoBehaviour {
 
     void Update() {
         UpdateControllerType();
-        mouseCameraMovement = 0.75f * mouseCameraMovement + 0.25f * controls.Gameplay.CameraMovementMouse.ReadValue<Vector2>();
+        mouseCameraMovement = 0.25f * mouseCameraMovement + 0.75f * controls.Gameplay.CameraMovementMouse.ReadValue<Vector2>();
         isWalkingSlowly = controls.Gameplay.SlowWalk.ReadValue<float>() != 0;
         isRunning = controls.Gameplay.Run.ReadValue<float>() != 0;
 #if !UNITY_EDITOR && UNITY_STANDALONE
