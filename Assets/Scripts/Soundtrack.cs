@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Soundtrack : MonoBehaviour {
+
+    static public Soundtrack instance { get; private set; }
 
     [Range(0f, 1f)]
     public float volume;
@@ -11,9 +12,18 @@ public class Soundtrack : MonoBehaviour {
     List<AudioSource> playedChords = new List<AudioSource>();
 
     void Awake() {
-        foreach (Transform child in transform) {
-            chords.Add(child.GetComponent<AudioSource>());
-            child.GetComponent<AudioSource>().volume = volume;
+        if (instance != null)
+            Destroy(gameObject);
+        else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        if (instance == this) {
+            foreach (Transform child in transform) {
+                chords.Add(child.GetComponent<AudioSource>());
+                child.GetComponent<AudioSource>().volume = volume;
+            }
         }
     }
 

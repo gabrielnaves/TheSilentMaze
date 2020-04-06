@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 
     public EnemyManager enemyManager;
+    public GameEvent onPlayerDied;
 
     public int currentFloor = 2;
 
@@ -13,12 +14,21 @@ public class Enemy : MonoBehaviour {
     public Color[] colors = new Color[0];
     public float[] speeds;
 
-    NavMeshAgent agent;
     [ViewOnly] public bool followingPlayer;
+    
+    NavMeshAgent agent;
+    AudioSource source;
+    float sourceVolumeVelocity;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
+        source = GetComponent<AudioSource>();
         enemyManager.AddEnemy(this);
+    }
+
+    void Update() {
+        float targetVolume = (Player.instance.currentFloor == currentFloor ? 1 : 0);
+        source.volume = Mathf.SmoothDamp(source.volume, targetVolume, ref sourceVolumeVelocity, 0.5f);
     }
 
     void FixedUpdate() {
@@ -58,7 +68,7 @@ public class Enemy : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject == Player.instance.gameObject) {
             GetComponent<FootprintSpawner>().SpawnDoubleFootprints();
-            Debug.Log("Killed Player");
+            onPlayerDied.Raise();
         }
     }
 }

@@ -16,6 +16,7 @@ public class GameInput : MonoBehaviour {
     [ViewOnly] public Vector2 mouseCameraMovement;
     [ViewOnly] public bool isWalkingSlowly;
     [ViewOnly] public bool isRunning;
+    [ViewOnly] public bool canPause = true;
 
     const string controllerTypeKey = "GameInput/ControllerType";
 
@@ -40,6 +41,14 @@ public class GameInput : MonoBehaviour {
         joystickCameraMovement = Vector2.zero;
         mouseCameraMovement = Vector2.zero;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void EnablePausing() {
+        canPause = true;
+    }
+
+    public void DisablePausing() {
+        canPause = false;
     }
 
     void Awake() {
@@ -69,7 +78,8 @@ public class GameInput : MonoBehaviour {
     }
 
     void OnPressedPause(InputAction.CallbackContext context) {
-        SimplePause.instance?.ToggleAndSendEvents();
+        if (canPause)
+            SimplePause.instance?.ToggleAndSendEvents();
     }
 
     void Start() {
@@ -82,7 +92,7 @@ public class GameInput : MonoBehaviour {
         isWalkingSlowly = controls.Gameplay.SlowWalk.ReadValue<float>() != 0;
         isRunning = controls.Gameplay.Run.ReadValue<float>() != 0;
 #if !UNITY_EDITOR && UNITY_STANDALONE
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (canPause && Input.GetKeyDown(KeyCode.Escape))
             SimplePause.instance?.ToggleAndSendEvents();
 #endif
     }

@@ -2,6 +2,7 @@
 
 public class PlayerFloorArrival : MonoBehaviour {
 
+    public int thisFloor;
     public GameObject previousFloorBlockingWall;
 
     bool playerPassed;
@@ -13,7 +14,7 @@ public class PlayerFloorArrival : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (!playerPassed && other.gameObject == Player.instance.gameObject) {
             previousFloorBlockingWall.SetActive(true);
-            Player.instance.currentFloor++;
+            Player.instance.UpdateFloor(thisFloor, transform);
             playerPassed = true;
         }
     }
