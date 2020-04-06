@@ -193,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf271d8cc44e7f408c697e58ca3a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyManager: {fileID: 11400000, guid: 91a53d4053eef214aab61a2948780b27, type: 2}
+  currentFloor: 2
   startingPos: {fileID: 5706580957720136245}
   arcs:
   - 0

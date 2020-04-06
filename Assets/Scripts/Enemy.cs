@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
 
+    public EnemyManager enemyManager;
+
     public int currentFloor = 2;
 
     public Transform startingPos;
@@ -12,10 +14,11 @@ public class Enemy : MonoBehaviour {
     public float[] speeds;
 
     NavMeshAgent agent;
-    bool move;
+    [ViewOnly] public bool followingPlayer;
 
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
+        enemyManager.AddEnemy(this);
     }
 
     void FixedUpdate() {
@@ -26,12 +29,12 @@ public class Enemy : MonoBehaviour {
     void CheckNoiseLevel() {
         FPSController.NoiseLevel noiseLevel = Player.instance.noiseLevel;
         if (currentFloor == Player.instance.currentFloor && noiseLevel != FPSController.NoiseLevel.none)
-            move = Vector3.Distance(Player.instance.transform.position, transform.position) < arcs[(int)noiseLevel];
-        else move = false;
+            followingPlayer = Vector3.Distance(Player.instance.transform.position, transform.position) < arcs[(int)noiseLevel];
+        else followingPlayer = false;
     }
 
     void Move() {
-        if (move) {
+        if (followingPlayer) {
             agent.SetDestination(Player.instance.transform.position);
             agent.speed = speeds[(int)Player.instance.noiseLevel];
         }
@@ -39,6 +42,10 @@ public class Enemy : MonoBehaviour {
             agent.SetDestination(startingPos.position);
             agent.speed = speeds[1];
         }
+    }
+
+    void OnDestroy() {
+        enemyManager.RemoveEnemy(this);
     }
 
     void OnDrawGizmosSelected() {

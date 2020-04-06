@@ -309,17 +309,6 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "eba50dc6-b7c1-44b7-9591-4eceb0181786",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a4596689-1489-4392-8ba5-b5540df526f0",
                     "path": "<Keyboard>/p",
                     "interactions": "",

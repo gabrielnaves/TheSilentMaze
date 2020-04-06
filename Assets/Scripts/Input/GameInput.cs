@@ -81,6 +81,10 @@ public class GameInput : MonoBehaviour {
         mouseCameraMovement = 0.75f * mouseCameraMovement + 0.25f * controls.Gameplay.CameraMovementMouse.ReadValue<Vector2>();
         isWalkingSlowly = controls.Gameplay.SlowWalk.ReadValue<float>() != 0;
         isRunning = controls.Gameplay.Run.ReadValue<float>() != 0;
+#if !UNITY_EDITOR && UNITY_STANDALONE
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SimplePause.instance?.ToggleAndSendEvents();
+#endif
     }
 
     void UpdateControllerType() {

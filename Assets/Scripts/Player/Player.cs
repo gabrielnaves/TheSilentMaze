@@ -4,8 +4,8 @@ public class Player : MonoBehaviour {
 
     static public Player instance { get; private set; }
 
-    [ViewOnly] public int currentFloor = 1;
-
+    public int currentFloor = 1;
+    
     public FPSController.NoiseLevel noiseLevel {
         get {
             return fpsController.noiseLevel;
